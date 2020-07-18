@@ -28,7 +28,7 @@ public class UserController {
     @PostMapping("/account")
     public ApiMessage register(@RequestBody HashMap<Object, Object> payload){
 
-        String db_prod_url = Helper.getUtilityServiceProdEndpoint();
+        String db_prod_url = Helper.getUtilityServiceDevEndpoint();
 
          final String collection_name = "users";
          String user_email = (String)payload.get("email");

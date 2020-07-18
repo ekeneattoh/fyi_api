@@ -13,7 +13,7 @@ public class Helper {
 
     public static String getUtilityServiceProdEndpoint(){
 
-        return "https://securityserviceapi.herokuapp.com";
+        return "";
     }
 
     public static String getUtilityServiceDevEndpoint(){
