@@ -15,8 +15,13 @@ import java.util.HashMap;
 @RestController
 public class UserController {
 
+    private UserService user_service;
+
     @Autowired
-    private UserService user_service; //field-based dependency injection
+    public UserController(UserService user_service){
+
+        this.user_service = user_service; //constructor based dependency injection
+    }
 
 
     @GetMapping("/")

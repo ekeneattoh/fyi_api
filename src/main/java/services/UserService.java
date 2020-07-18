@@ -20,11 +20,13 @@ public class UserService {
         String password = (String)user_info.get("password");
         String firstname = (String)user_info.get("firstname");
         String lastname = (String)user_info.get("lastname");
-        String username = (String)user_info.get("username");
         String account_type = (String)user_info.get("account_type");
 
         //create a new user
-        User new_user = UserFactory.getUser(email, password, firstname, lastname, username, account_type);
+        User new_user = UserFactory.getUser(email, password, firstname, lastname, account_type);
+
+        //set the username
+        new_user.setUserName();
 
         //save the user info in the db
 

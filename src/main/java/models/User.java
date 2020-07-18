@@ -1,6 +1,9 @@
 package models;
 
+import java.time.Instant;
 import java.util.HashMap;
+
+import org.apache.commons.lang3.RandomStringUtils;
 
 public abstract class User {
 
@@ -13,13 +16,12 @@ public abstract class User {
 
     private final HashMap<String, String> user_info = new HashMap<String, String>();
 
-    public User(String email, String password, String firstname, String lastname,
-                String username, String account_type ){
+    public User(String email, String password, String firstname,
+                String lastname, String account_type ){
          this.email = email;
          this.password = password;
          this.firstname = firstname;
          this.lastname = lastname;
-         this.username = username;
          this.account_type = account_type;
     }
 
@@ -35,9 +37,10 @@ public abstract class User {
         return user_info;
     }
 
-    public void setUserName(String username){
+    public void setUserName(){
 
-        this.username = username;
+
+        this.username = this.firstname + this.lastname + String.valueOf( (Instant.now().getEpochSecond()) );
     }
 
     public String getUsername(){
