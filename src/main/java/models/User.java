@@ -2,7 +2,7 @@ package models;
 
 import java.util.HashMap;
 
-abstract class User {
+public abstract class User {
 
     private final String email;
     private final String password;
@@ -13,11 +13,14 @@ abstract class User {
 
     private final HashMap<String, String> user_info = new HashMap<String, String>();
 
-    public User(String email, String password, String firstname, String lastname ){
+    public User(String email, String password, String firstname, String lastname,
+                String username, String account_type ){
          this.email = email;
          this.password = password;
          this.firstname = firstname;
          this.lastname = lastname;
+         this.username = username;
+         this.account_type = account_type;
     }
 
     public HashMap<String, String> getUserInfo() {
@@ -50,4 +53,5 @@ abstract class User {
 
         return this.account_type;
     }
+
 }

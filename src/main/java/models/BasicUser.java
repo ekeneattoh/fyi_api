@@ -1,9 +1,10 @@
 package models;
 
-class BasicUser extends User {
+public class BasicUser extends User {
 
-    public BasicUser(String email, String password, String firstname, String lastname) {
-        super(email, password, firstname, lastname);
+
+    public BasicUser(String email, String password, String firstname, String lastname, String username, String account_type) {
+        super(email, password, firstname, lastname, username, account_type);
     }
 }
 

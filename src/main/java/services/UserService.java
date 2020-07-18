@@ -1,21 +1,33 @@
 package services;
 
+import helpers.Helper;
+import models.ApiMessage;
+import models.User;
+import models.UserFactory;
+import org.springframework.web.client.RestTemplate;
+
 import java.util.HashMap;
 
 public class UserService {
 
-    public String registerUser(HashMap<String, String> user_info){
+    public UserService(){
 
-        String email = user_info.get("email");
-        String password = user_info.get("password");
-        String firstname = user_info.get("firstname");
-        String lastname = user_info.get("lastname");
-        String type = user_info.get("type");
+    }
+
+    public ApiMessage registerUser(HashMap<Object, Object> user_info, String db_url, RestTemplate rest_template){
+
+        String email = (String)user_info.get("email");
+        String password = (String)user_info.get("password");
+        String firstname = (String)user_info.get("firstname");
+        String lastname = (String)user_info.get("lastname");
+        String username = (String)user_info.get("username");
+        String account_type = (String)user_info.get("account_type");
 
         //create a new user
+        User new_user = UserFactory.getUser(email, password, firstname, lastname, username, account_type);
 
         //save the user info in the db
 
-        return "OK";
+        return Helper.sendDataToDatabase(new_user.getUserInfo(), db_url, rest_template);
     }
 }
