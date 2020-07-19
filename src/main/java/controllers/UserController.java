@@ -3,7 +3,6 @@ package controllers;
 import helpers.Helper;
 import models.ApiStringMessage;
 import models.BasicUser;
-import models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,8 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import services.UserService;
 
-import javax.validation.Valid;
-import java.util.HashMap;
 
 @RestController
 public class UserController {

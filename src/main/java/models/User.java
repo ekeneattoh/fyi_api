@@ -5,8 +5,8 @@ import java.util.HashMap;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
-
 public abstract class User {
+
 
     private final String email;
 
