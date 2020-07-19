@@ -6,27 +6,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ApiMessage {
+public class ApiStringMessage {
 
-    private Object data;
+    private String data;
 
-    public ApiMessage(){
+    public ApiStringMessage(){
     }
 
     public void setData(String data){
         this.data = data;
     }
 
-    public void setData(HashMap<String, String> data){
-
-        this.data = data;
-    }
-
-    public void setData(ArrayList<String> data){
-        this.data = data;
-    }
-
-    public Object getData(){
+    public String getData(){
         return this.data;
     }
 }

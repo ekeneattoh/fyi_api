@@ -1,7 +1,7 @@
 package services;
 
 import helpers.Helper;
-import models.ApiMessage;
+import models.ApiStringMessage;
 import models.User;
 import models.UserFactory;
 import org.springframework.web.client.RestTemplate;
@@ -14,13 +14,13 @@ public class UserService {
 
     }
 
-    public ApiMessage registerUser(HashMap<Object, Object> user_info, String db_url, RestTemplate rest_template){
+    public ApiStringMessage registerUser(HashMap<Object, Object> incoming_user_data, String db_url, String encryption_url, RestTemplate rest_template){
 
-        String email = (String)user_info.get("email");
-        String password = (String)user_info.get("password");
-        String firstname = (String)user_info.get("firstname");
-        String lastname = (String)user_info.get("lastname");
-        String account_type = (String)user_info.get("account_type");
+        String email = (String)incoming_user_data.get("email");
+        String password = (String)incoming_user_data.get("password");
+        String firstname = (String)incoming_user_data.get("firstname");
+        String lastname = (String)incoming_user_data.get("lastname");
+        String account_type = (String)incoming_user_data.get("account_type");
 
         //create a new user
         User new_user = UserFactory.getUser(email, password, firstname, lastname, account_type);
@@ -28,8 +28,16 @@ public class UserService {
         //set the username
         new_user.setUserName();
 
-        //save the user info in the db
+        //encrypt the user supplied password
+        HashMap<String, String > plain_password_data = new HashMap<String, String>();
+        plain_password_data.put("plain_data", (String)incoming_user_data.get("password"));
 
-        return Helper.sendDataToDatabase(new_user.getUserInfo(), db_url, rest_template);
+        String encrypted_password = (String) ( Helper.queryUtilityService(plain_password_data,encryption_url,rest_template ) ).getData();
+
+        //set the encrypted password for the user
+        new_user.setPassword(encrypted_password);
+
+        //save the user info in the db
+        return Helper.queryUtilityService(new_user.getUserInfo(), db_url, rest_template);
     }
 }

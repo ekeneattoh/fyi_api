@@ -8,7 +8,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 public abstract class User {
 
     private final String email;
-    private final String password;
+    private String password;
     private final String firstname;
     private final String lastname;
     private String username;
@@ -41,6 +41,11 @@ public abstract class User {
 
 
         this.username = this.firstname + this.lastname + String.valueOf( (Instant.now().getEpochSecond()) );
+    }
+
+    public void setPassword(String password){
+
+        this.password = password;
     }
 
     public String getUsername(){

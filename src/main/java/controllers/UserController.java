@@ -1,7 +1,7 @@
 package controllers;
 
 import helpers.Helper;
-import models.ApiMessage;
+import models.ApiStringMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,31 +16,37 @@ import java.util.HashMap;
 public class UserController {
 
     private UserService user_service;
+    private RestTemplate template;
 
     @Autowired
-    public UserController(UserService user_service){
+    public UserController(UserService user_service, RestTemplate template) {
 
-        this.user_service = user_service; //constructor based dependency injection
+        //constructor based dependency injection
+
+        this.user_service = user_service;
+        this.template = template;
     }
 
 
     @GetMapping("/")
-    public String homePage(){
+    public String homePage() {
 
         return "Random FYIs";
     }
 
     @PostMapping("/account")
-    public ApiMessage register(@RequestBody HashMap<Object, Object> payload){
+    public ApiStringMessage register(@RequestBody HashMap<Object, Object> payload) {
 
-        String db_prod_url = Helper.getUtilityServiceDevEndpoint();
+        String UTILITY_URL = Helper.getUtilityServiceDevEndpoint();
 
-         final String collection_name = "users";
-         String user_email = (String)payload.get("email");
+        String encryption_url = UTILITY_URL +"/encrypt";
 
-         final RestTemplate template = Helper.getRestTemplate();
+        final String collection_name = "users";
+        String user_email = (String) payload.get("email");
 
-         return user_service.registerUser(payload,
-                 ( db_prod_url + "/"+collection_name + "/" + user_email + "/add"), template);
+        String db_prod_url = UTILITY_URL +
+                "/" + collection_name + "/" + user_email + "/add";
+
+        return user_service.registerUser(payload, db_prod_url, encryption_url , template);
     }
 }

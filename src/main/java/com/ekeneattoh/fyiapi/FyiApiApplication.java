@@ -5,6 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.web.client.RestTemplate;
 import services.UserService;
 
 @SpringBootApplication
@@ -18,6 +19,11 @@ public class FyiApiApplication {
 	@Bean
 	public UserService userService(){
 		return new UserService();
+	}
+
+	@Bean
+	public RestTemplate template(){
+		return new RestTemplate();
 	}
 
 }

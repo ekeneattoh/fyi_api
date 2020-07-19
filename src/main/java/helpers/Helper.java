@@ -2,7 +2,7 @@ package helpers;
 
 import java.util.HashMap;
 
-import models.ApiMessage;
+import models.ApiStringMessage;
 import org.springframework.web.client.RestTemplate;
 
 public class Helper {
@@ -20,14 +20,10 @@ public class Helper {
         return "http://127.0.0.1:5000";
     }
 
-    public static ApiMessage sendDataToDatabase(HashMap<String, String> data, String database_rest_url, RestTemplate rest_template){
+    public static ApiStringMessage queryUtilityService(HashMap<String, String> data, String service_url, RestTemplate rest_template){
 
-        return rest_template.postForObject(database_rest_url, data, ApiMessage.class);
+        return rest_template.postForObject(service_url, data, ApiStringMessage.class);
     }
 
-    public static RestTemplate getRestTemplate(){
-
-        return new RestTemplate();
-    }
 
 }
