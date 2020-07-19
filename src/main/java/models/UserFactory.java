@@ -2,16 +2,15 @@ package models;
 
 public class UserFactory {
 
-    public static User getUser( String email, String password,
-                               String firstname, String lastname, String account_type ){
+    public static User getUser(String account_type, User user) {
 
-        switch (account_type){
+        switch (account_type) {
 
             case "BASIC":
-                return new BasicUser(email, password, firstname, lastname, account_type);
+                return (BasicUser) user;
 
             case "ADMIN":
-                return new AdminUser(email, password, firstname, lastname, account_type);
+                return (AdminUser) user;
 
             default:
                 throw new IllegalArgumentException("You need to supply a valid user type");
