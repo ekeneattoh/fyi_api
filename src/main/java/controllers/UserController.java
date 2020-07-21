@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import services.UserService;
 
+import javax.validation.Valid;
+
 
 @RestController
 public class UserController {
@@ -35,7 +37,7 @@ public class UserController {
     }
 
     @PostMapping("/account")
-    public ApiStringMessage register(@RequestBody BasicUser incoming_user) {
+    public ApiStringMessage register(@Valid  @RequestBody BasicUser incoming_user) {
 
         String UTILITY_URL = Helper.getUtilityServiceDevEndpoint();
 

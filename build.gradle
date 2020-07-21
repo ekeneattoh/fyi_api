@@ -17,7 +17,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compile 'org.springframework.boot:spring-boot-starter-web'
 	compile 'org.apache.commons:commons-lang3:3.11'
-	compile 'javax.validation:validation-api:1.0.0.GA'
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.2.6.RELEASE'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}

@@ -72,4 +72,17 @@ public abstract class User {
         return this.account_type;
     }
 
+    public String getFirstname(){
+        return this.firstname;
+    }
+
+    public String getLastname(){
+        return this.lastname;
+    }
+
+    public String getEmail(){
+        return this.email;
+    }
+
+
 }
