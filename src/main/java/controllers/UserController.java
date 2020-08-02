@@ -3,6 +3,7 @@ package controllers;
 import helpers.Helper;
 import models.ApiStringMessage;
 import models.BasicUser;
+import models.FYIResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,19 +38,25 @@ public class UserController {
     }
 
     @PostMapping("/account")
-    public ApiStringMessage register(@Valid  @RequestBody BasicUser incoming_user) {
+    public FYIResponse register(@Valid @RequestBody BasicUser incoming_user) {
 
         String UTILITY_URL = Helper.getUtilityServiceDevEndpoint();
 
         String encryption_url = UTILITY_URL +"/encrypt";
 
-        final String collection_name = "users";
-        String user_email = incoming_user.getUserInfo().get("email");
-        String account_type = incoming_user.getUserInfo().get("account_type");
+        final String user_info_collection_name = "user_info";
+        final String user_fyi_collection_name = "fyis";
 
-        String db_prod_url = UTILITY_URL +
-                "/" + collection_name + "/" + user_email + "/add";
+        String user_email = (String) ( incoming_user.getUserInfo().get("email") );
+        String account_type = (String) incoming_user.getUserInfo().get("account_type");
 
-        return user_service.registerUser(account_type, incoming_user, db_prod_url, encryption_url , template);
+        String db_user_info_prod_url = UTILITY_URL +
+                "/" + user_info_collection_name + "/" + user_email + "/add";
+
+        String db_user_fyi_prod_url = UTILITY_URL +
+                "/" + user_fyi_collection_name + "/" + user_email + "/add";
+
+        return user_service.registerUser(account_type, incoming_user, db_user_info_prod_url,
+                db_user_fyi_prod_url, encryption_url , template);
     }
 }
