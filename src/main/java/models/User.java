@@ -20,7 +20,7 @@ public abstract class User {
 
     private String username;
 
-    private final HashMap<String, String> user_info = new HashMap<String, String>();
+    private final HashMap<String, Object> user_info = new HashMap<>();
 
     public User(String email, String password, String firstname,
                 String lastname, String account_type ){
@@ -31,7 +31,7 @@ public abstract class User {
          this.account_type = account_type;
     }
 
-    public HashMap<String, String> getUserInfo() {
+    public HashMap<String, Object> getUserInfo() {
 
         user_info.put("email", email);
         user_info.put("password", password);

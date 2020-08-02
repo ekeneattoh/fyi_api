@@ -20,7 +20,7 @@ public class Helper {
         return "http://127.0.0.1:5000";
     }
 
-    public static ApiStringMessage queryUtilityService(HashMap<String, String> data, String service_url, RestTemplate rest_template){
+    public static ApiStringMessage queryUtilityService(HashMap<String, Object> data, String service_url, RestTemplate rest_template){
 
         return rest_template.postForObject(service_url, data, ApiStringMessage.class);
     }

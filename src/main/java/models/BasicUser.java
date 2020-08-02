@@ -22,8 +22,8 @@ public class BasicUser extends User {
     }
 
     @Override
-    @Pattern(regexp = "BASIC|PREMIUM", message = "Acount Type must be either BASIC or PREMIUM")
-    @NotNull(message = "Acount Type must not be empty")
+    @Pattern(regexp = "BASIC|PREMIUM", message = "Account Type must be either BASIC or PREMIUM")
+    @NotNull(message = "Account Type must not be empty")
     public String getAccountType() {
         return super.getAccountType();
     }
