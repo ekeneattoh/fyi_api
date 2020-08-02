@@ -21,6 +21,10 @@ public class UserController {
     private final UserService user_service;
     private final RestTemplate template;
 
+    private final String UTILITY_URL;
+    private final String user_info_collection_name;
+    private final String user_fyi_collection_name;
+
     @Autowired
     public UserController(UserService user_service, RestTemplate template) {
 
@@ -28,6 +32,10 @@ public class UserController {
 
         this.user_service = user_service;
         this.template = template;
+
+        UTILITY_URL = Helper.getUtilityServiceDevEndpoint();
+        user_info_collection_name = "user_info";
+        user_fyi_collection_name = "fyis";
     }
 
 
@@ -40,12 +48,7 @@ public class UserController {
     @PostMapping("/account")
     public FYIResponse register(@Valid @RequestBody BasicUser incoming_user) {
 
-        String UTILITY_URL = Helper.getUtilityServiceDevEndpoint();
-
         String encryption_url = UTILITY_URL +"/encrypt";
-
-        final String user_info_collection_name = "user_info";
-        final String user_fyi_collection_name = "fyis";
 
         String user_email = (String) ( incoming_user.getUserInfo().get("email") );
         String account_type = (String) incoming_user.getUserInfo().get("account_type");
