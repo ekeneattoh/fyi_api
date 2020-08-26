@@ -3,8 +3,10 @@ package controllers;
 import helpers.Helper;
 import models.ApiStringMessage;
 import models.BasicUser;
+import models.FYIErrorResponse;
 import models.FYIResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,7 +48,7 @@ public class UserController {
     }
 
     @PostMapping("/account")
-    public FYIResponse register(@Valid @RequestBody BasicUser incoming_user) {
+    public FYIResponse register(@Valid @RequestBody BasicUser incoming_user, BindingResult bindingResult) {
 
         String encryption_url = UTILITY_URL +"/encrypt";
 
@@ -58,6 +60,10 @@ public class UserController {
 
         String db_user_fyi_prod_url = UTILITY_URL +
                 "/" + user_fyi_collection_name + "/" + user_email + "/add";
+
+        if(bindingResult.hasErrors()){
+            return new FYIErrorResponse(bindingResult.toString());
+        }
 
         return user_service.registerUser(account_type, incoming_user, db_user_info_prod_url,
                 db_user_fyi_prod_url, encryption_url , template);

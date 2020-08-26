@@ -2,7 +2,9 @@ package services;
 
 import helpers.Helper;
 import models.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.server.ResponseStatusException;
 
 
 import java.util.ArrayList;
@@ -39,7 +41,7 @@ public class UserService {
 
         /*
             create FYI collection for the user
-            This is a josn document with username and a list of fyi strings
+            This is a json document with username and a list of fyi strings
          */
         HashMap<String, Object>fyis = new HashMap<>();
         fyis.put("username", new_user.getUsername());
@@ -51,13 +53,10 @@ public class UserService {
             return the username to the client
             otherwise, return the response of the database service
          */
-        if ( db_response.getData().equals(successful_db_response) &&
-                fyi_db_response.getData().equals(successful_db_response) ){
-           return new FYIResponse(new_user.getUsername());
+        if ("Data added!".equals(db_response.getData()) && "Data added!".equals(fyi_db_response.getData())) {
+            return new FYIResponse(new_user.getUsername());
         }
-        else {
-            return new FYIErrorResponse(db_response.getData());
-        }
-
+        throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND, db_response.getData());
     }
 }
